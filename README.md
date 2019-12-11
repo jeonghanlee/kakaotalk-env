@@ -24,6 +24,9 @@ dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 wi
 
 https://downloadkakaotalk.com/kakao-talk-for-windows.html
 
+```
+wget http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe
+````
 
 * Install the downloaded Kakao Talk with wine
 
@@ -61,3 +64,20 @@ bash kakaotalk.bash start
 ```
 bash kakaotalk.bash start
 ```
+
+## Screenshots
+
+
+|![Kakao Talk Setting](pictures/settings.png)|
+| :---: |
+|**Figure 1** Kakao Talk Setting. |
+
+
+|![Kakao Talk Setting](pictures/settings_info.png)|
+| :---: |
+|**Figure 2** Kakao Talk Setting Information. |
+
+
+|![System Inforg](pictures/system_info.png)|
+| :---: |
+|**Figure 3** Kakao Talk and Debian System Information. |
