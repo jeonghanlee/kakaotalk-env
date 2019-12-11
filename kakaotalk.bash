@@ -108,10 +108,10 @@ function stop_kakaotalk
     local pid=NON_EXIST;
     pid=$(ps ax |grep KakaoTalk.exe | grep -v "grep" | awk '{print $1}')
     if [[ $(checkIfVar "${pid}") -eq "$NON_EXIST" ]]; then
-	printf ">> Server is not running\n";
+	printf ">> KakaoTalk is not running\n";
     else
-	printf ">> Server is running with %s\n" "${pid}"
-	printf "   Killing the running server ....\n"
+	printf ">> KakaoTalk is running with %s\n" "${pid}"
+	printf "   Killing the running KakaoTalk ....\n"
 	kill -9 ${pid}
     fi
 }
