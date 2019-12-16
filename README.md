@@ -45,6 +45,12 @@ wine KakaoTalk_Setup.exe
 
 * Login with Kakao account
 
+With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill few times. 
+
+```
+kakaotalk-env (master)$ ./kakaotalk.bash start
+```
+
 * Go to the Settings, Select one of `Nanum` family fonts. The Kakao Talk will ask to restart it. 
 
 * Restart
