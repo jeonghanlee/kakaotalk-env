@@ -3,6 +3,9 @@ kakaotalk-env
 
 This is the wrapper script to start and quit the Kakao Talk in the Debian Linux.
 
+## Assumption
+A system must have **one** single wine application for the Kakao Talk. If not, please don't use this repo to handle the Kakao Talk. This script will kill own entire wine applications when the Kakao Talk will be restarted or stopped. 
+
 ## Preparation
 
 * Install Wine with root

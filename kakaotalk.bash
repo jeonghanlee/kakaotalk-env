@@ -18,8 +18,8 @@
 #
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   date    : Wednesday, December 11 23:04:08 CET 2019
-#   version : 0.0.1
+#   date    : Tuesday, December 17 01:21:53 CET 2019
+#   version : 0.0.2
 
 declare -gr SC_SCRIPT="$(realpath "$0")"
 declare -gr SC_SCRIPTNAME=${0##*/}
@@ -109,13 +109,26 @@ function stop_kakaotalk
     pid=$(ps ax |grep KakaoTalk.exe | grep -v "grep" | awk '{print $1}')
     if [[ $(checkIfVar "${pid}") -eq "$NON_EXIST" ]]; then
 	printf ">> KakaoTalk is not running\n";
+	exit
     else
 	printf ">> KakaoTalk is running with %s\n" "${pid}"
 	printf "   Killing the running KakaoTalk ....\n"
 	kill -9 ${pid}
     fi
-}
 
+    local pids=NON_EXIST;
+    pids=$(ps ax |grep wine | grep -v "grep" | awk '{print $1}')
+    if [[ $(checkIfVar "${pids}") -eq "$NON_EXIST" ]]; then
+	printf ">> Wine application is not running\n";
+    else
+	for pid in ${pids[@]}; do
+	    printf ">> Wineserver and others are running with %s\n" "${pid}"
+	    printf "   Killing the running wine applications ....\n"
+	    kill -9 ${pid}
+	done
+    fi
+    
+}
 
 case "$1" in
     start)
