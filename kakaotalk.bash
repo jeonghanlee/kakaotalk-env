@@ -18,8 +18,8 @@
 #
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   date    : Tuesday, December 17 01:21:53 CET 2019
-#   version : 0.0.2
+#   date    : Wednesday, February 26 17:11:00 PST 2020
+#   version : 0.0.3
 
 declare -gr SC_SCRIPT="$(realpath "$0")"
 declare -gr SC_SCRIPTNAME=${0##*/}
@@ -100,6 +100,14 @@ function start_kakaotalk
 }
 
 
+function uninstall_kakaotalk
+{
+    pushd "${KakaoTalk}"
+    wine uninstall.exe &
+    popd
+}
+
+
 
 
 
@@ -140,6 +148,9 @@ case "$1" in
     restart)
 	stop_kakaotalk
 	start_kakaotalk
+	;;
+    uninstall)
+	uninstall_kakaotalk
 	;;
     ip)
 	get_ip;
