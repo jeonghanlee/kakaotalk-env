@@ -14,7 +14,8 @@ A system must have **one** single wine application for the Kakao Talk. If not, p
 dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind
 ```
 
-* Setup the basic Korean font for wine
+* Setup the basic Korean font for wine. At least one should run wine before Kakao installation. 
+
 `emacs ~/.wine/system.reg`
 
 ```

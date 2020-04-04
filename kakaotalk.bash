@@ -18,8 +18,8 @@
 #
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   date    : Wednesday, February 26 17:11:00 PST 2020
-#   version : 0.0.3
+#   date    : Friday, April  3 23:15:42 PDT 2020
+#   version : 0.0.4
 
 declare -gr SC_SCRIPT="$(realpath "$0")"
 declare -gr SC_SCRIPTNAME=${0##*/}
@@ -27,8 +27,12 @@ declare -gr SC_TOP="${SC_SCRIPT%/*}"
 declare -gr SC_LOGDATE="$(date +%y%m%d%H%M)"
 
 
-declare -gr ProgramFiles="${HOME}/.wine/drive_c/Program Files"
-declare -gr KakaoTalk="${ProgramFiles}/Kakao/KakaoTalk"
+declare -gr ProgramFiles1="${HOME}/.wine/drive_c/Program Files"
+declare -gr ProgramFiles2="${HOME}/.wine/drive_c/Program Files (x86)"
+
+declare -gr KakaoTalk="/Kakao/KakaoTalk"
+declare -gr KakaoTalkPath1="${ProgramFiles1}${KakaoTalk}"
+declare -gr KakaoTalkPath2="${ProgramFiles2}${KakaoTalk}"
 
 EXIST=1
 NON_EXIST=0
@@ -84,6 +88,28 @@ function checkIfVar()
     echo "${result}"
 }
 
+
+## if [[ $(checkIfDir "${rep}") -eq "$EXIST" ]]; then
+##    EXIST
+## fi
+##
+
+function checkIfDir
+{
+    
+    local dir=$1
+    local result=""
+    if [ ! -d "$dir" ]; then
+	result=$NON_EXIST
+	# doesn't exist
+    else
+	result=$EXIST
+	# exist
+    fi
+    echo "${result}"
+};
+
+
 function get_ip
 {
     local realip=$(ip -4 route get 8.8.8.8 | awk {'print $7'} | tr -d '\n')
@@ -94,7 +120,15 @@ function get_ip
 
 function start_kakaotalk
 {
-    pushd "${KakaoTalk}"
+    local target=""
+    if [[ $(checkIfDir "${KakaoTalkPath1}") -eq "$EXIST" ]]; then
+	target="${KakaoTalkPath1}"
+    elif [[ $(checkIfDir "${KakaoTalkPath2}") -eq "$EXIST" ]]; then
+	target="${KakaoTalkPath2}"
+    else
+	die "There is no path for Kakaotalk"
+    fi
+    pushd "${target}"
     wine KakaoTalk.exe &
     popd
 }
@@ -102,7 +136,15 @@ function start_kakaotalk
 
 function uninstall_kakaotalk
 {
-    pushd "${KakaoTalk}"
+    local target=""
+    if [[ $(checkIfDir "${KakaoTalkPath1}") -eq "$EXIST" ]]; then
+	target="${KakaoTalkPath1}"
+    elif [[ $(checkIfDir "${KakaoTalkPath2}") -eq "$EXIST" ]]; then
+	target="${KakaoTalkPath2}"
+    else
+	die "There is no path for Kakaotalk"
+    fi
+    pushd "${target}"
     wine uninstall.exe &
     popd
 }
