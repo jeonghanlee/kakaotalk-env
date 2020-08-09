@@ -32,6 +32,9 @@ declare -gr KakaoTalk="/Kakao/KakaoTalk"
 declare -gr KakaoTalkPath1="${ProgramFiles1}${KakaoTalk}"
 declare -gr KakaoTalkPath2="${ProgramFiles2}${KakaoTalk}"
 
+EXIST=1
+NON_EXIST=0
+
 function pushdd { builtin pushd "$@" > /dev/null || exit; }
 function popdd  { builtin popd  > /dev/null || exit; }
 
@@ -117,8 +120,9 @@ function start_kakaotalk
     else
     	die "There is no path for Kakaotalk"
     fi
+
     pushdd "${target}"
-    wine KakaoTalk.exe &
+        wine KakaoTalk.exe &
     popdd
 }
 
@@ -127,62 +131,74 @@ function uninstall_kakaotalk
 {
     local target=""
     if [[ $(checkIfDir "${KakaoTalkPath1}") -eq "$EXIST" ]]; then
-	target="${KakaoTalkPath1}"
+    	target="${KakaoTalkPath1}"
     elif [[ $(checkIfDir "${KakaoTalkPath2}") -eq "$EXIST" ]]; then
-	target="${KakaoTalkPath2}"
+    	target="${KakaoTalkPath2}"
     else
-	die "There is no path for Kakaotalk"
+    	die "There is no path for Kakaotalk"
     fi
+
     pushdd "${target}"
-    wine uninstall.exe &
+        wine uninstall.exe &
     popdd
 }
 
 
 function stop_kakaotalk
 {
-    local pid=NON_EXIST;
-    pid=$(ps ax |grep KakaoTalk.exe | grep -v "grep" | awk '{print $1}')
-    if [[ $(checkIfVar "${pid}") -eq "$NON_EXIST" ]]; then
-	printf ">> KakaoTalk is not running\n";
-	exit
-    else
-	printf ">> KakaoTalk is running with %s\n" "${pid}"
-	printf "   Killing the running KakaoTalk ....\n"
-	kill -9 "${pid}"
-    fi
-
     local pids=NON_EXIST;
-    pids=$(ps ax |grep wine | grep -v "grep" | awk '{print $1}')
+    local name=""
+    name="KakaoTalk.exe";
+
+    # If we can use an expect script, we can kill KakaoTalk process without sudo
+    # $ winedbg 
+    # $ info proc
+    # Wine-dbg>info proc
+    #  pid      threads  executable (all id:s are in hex)
+    # 00000061 1        'winedbg.exe'
+    # 00000023 4        'explorer.exe'
+    # 0000000e 5        'services.exe'
+    # 0000001e 4        \_ 'winedevice.exe'
+    # 00000019 3        \_ 'plugplay.exe'
+    # 00000011 4        \_ 'winedevice.exe'
+    # 00000008 55       'KakaoTalk.exe'
+    # Wine-dbg>attach 00000008
+    # 0x00000000f7f22067: int $0x80
+    # Wine-dbg>kill
+    # Wine-dbg>quit
+    # $
+    #
+    pids=$(ps a | grep "KakaoTalk.exe" | grep -v "grep" | awk '{print $1}')
+
     if [[ $(checkIfVar "${pids}") -eq "$NON_EXIST" ]]; then
-	printf ">> Wine application is not running\n";
+    	printf ">> Wine %s application is not running\n" "$name";
     else
-	for pid in "${pids[@]}"; do
-	    printf ">> Wineserver and others are running with %s\n" "${pid}"
-	    printf "   Killing the running wine applications ....\n"
-	    kill -9 "${pid}"
-	done
+	    for pid in "${pids[@]}"; do
+	        printf ">> Wine %s application was found with PID %s\n" "$name" "${pid}"
+	        printf "   Killing the running application ....\n"
+	        sudo kill -9 "${pid}"
+	    done
     fi
     
 }
 
 case "$1" in
     start)
-	start_kakaotalk
-	;;
+	    start_kakaotalk
+	    ;;
     stop)
-	stop_kakaotalk
-	;;
+	    stop_kakaotalk
+	    ;;
     restart)
-	stop_kakaotalk
-	start_kakaotalk
-	;;
+	    stop_kakaotalk
+	    start_kakaotalk
+	    ;;
     uninstall)
-	uninstall_kakaotalk
-	;;
+	    uninstall_kakaotalk
+	    ;;
     ip)
-	get_ip;
-	;;
+	    get_ip;
+	    ;;
      *)
 	echo "Usage: $0 {start|stop|restart|ip}"
 	exit 2

@@ -1,14 +1,37 @@
 #
+.PHONY: usage all pkgs get conf conf.show install upgrade
+
+# default
+usage:
+	@echo ""
+	@echo ">>> Welcome $(APPNAME) Configuration Environment."
+	@echo ""
+	@echo "    make get       : Download $(APPNAME)"
+	@echo "    make conf      : Update $(WINE_CFG) with $(DEFAULT_FONT)"
+	@echo "    make conf.show : Show the $(DEFAULT_FONT) in $(WINE_CFG)"
+	@echo "    make install   : Install $(APPNAME) through wine"
+	@echo "    make pkgs      : Install all necessary wine packages"
+	@echo "    make usage     : This screen (default)"
+	@echo "    make upgrade   : Reinstall $(APPNAME) (get, conf, conf.show, and install)"
+	@echo ""
+
+upgrade: get conf conf.show install 
+
 get:
 	@wget -c $(SRC_URL)
 
 conf:
 	@echo ">>> Updating $(WINE_CFG) with $(DEFAULT_FONT)"
 	@sed -i -e "s:\"MS Shell Dlg\"=.*:\"MS Shell Dlg\"=\"$(DEFAULT_FONT)\":g"\
-                   -e "s:\"MS Shell Dlg 2\"=.*:\"MS Shell Dlg 2\"=\"$(DEFAULT_FONT)\":g"  $(WINE_CFG)
+            -e "s:\"MS Shell Dlg 2\"=.*:\"MS Shell Dlg 2\"=\"$(DEFAULT_FONT)\":g"  $(WINE_CFG)
 
 conf.show:
 	@cat -b $(WINE_CFG) | grep "MS Shell"
 
 install:
 	@wine $(TOP)/$(SRC_NAME)
+
+pkgs:
+	@sudo dpkg --add-architecture i386
+	@sudo apt-get update 
+	@sudo apt-get install wine wine32 winbind

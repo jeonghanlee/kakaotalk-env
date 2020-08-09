@@ -14,12 +14,16 @@ A system must have **one** single wine application for the Kakao Talk. If not, p
 dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind
 ```
 
-## Build
-
-Several Makefile fules make life easy.
+or
 
 ```bash
-$ make
+make pkgs
+```
+
+## Build
+
+```bash
+$ make get
 ........
 KakaoTalk_Setup.exe        100%[==================>]  52.46M  17.0MB/s    in 3.7s
 2020-08-08 22:39:49 (14.3 MB/s) - ‘KakaoTalk_Setup.exe’ saved [55013760/55013760]
@@ -99,10 +103,13 @@ Install KakaoTalk.
 
 With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill few times.
 
-
 ## Upgrade
 
 The automatic update doesn't work. However, we can install it again from scratch. It will have the latest version.
+
+```bash
+make upgrade
+```
 
 ## Command line Commands
 

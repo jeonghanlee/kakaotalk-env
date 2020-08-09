@@ -1,0 +1,21 @@
+name: Linter Run
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Lint Code Base
+        uses: docker://github/super-linter:latest
+        env:
+          VALIDATE_MD: true
+          VALIDATE_BASH: true
