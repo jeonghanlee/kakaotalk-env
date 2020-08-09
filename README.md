@@ -1,6 +1,6 @@
 # kakaotalk-env
 
-This is the wrapper script to start and quit the Kakao Talk in the Debian Linux.
+Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian Linux.
 
 ## Assumption
 
@@ -79,7 +79,7 @@ $ make install
 
 ### `make get`
 
-Download `KakaoTalk_Setup.exe` from [1].
+Download `KakaoTalk_Setup.exe` from [2].
 
 ### `make conf`
 
@@ -141,6 +141,9 @@ bash kakaotalk.bash stop
 | :---: |
 |**Figure 12** Kakao Talk and Debian System Information. |
 
-## Reference
+## References
 
-[1] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
+[1] <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
+
+[3] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
+
