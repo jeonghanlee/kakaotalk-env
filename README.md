@@ -95,6 +95,11 @@ $ make conf.show
 
 Install KakaoTalk.
 
+* Login with Kakao account
+
+With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill few times.
+
+
 ## Upgrade
 
 The automatic update doesn't work. However, we can install it again from scratch. It will have the latest version.
