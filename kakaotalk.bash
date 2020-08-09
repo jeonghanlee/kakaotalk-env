@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Copyright (c) 2019           Jeong Han Lee
+#  Copyright (c) 2019 - 2020   Jeong Han Lee
 #
 #  The program is free software: you can redistribute
 #  it and/or modify it under the terms of the GNU General Public License
@@ -15,17 +15,15 @@
 #  You should have received a copy of the GNU General Public License along with
 #  this program. If not, see https://www.gnu.org/licenses/gpl-2.0.txt
 #
-#
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   date    : Friday, April  3 23:15:42 PDT 2020
-#   version : 0.0.4
+#   version : 0.0.5
 
-declare -gr SC_SCRIPT="$(realpath "$0")"
-declare -gr SC_SCRIPTNAME=${0##*/}
-declare -gr SC_TOP="${SC_SCRIPT%/*}"
-declare -gr SC_LOGDATE="$(date +%y%m%d%H%M)"
+declare -g SC_SCRIPT;
 
+SC_SCRIPT="$(realpath "$0")";
+
+declare -gr version="0.0.5"
 
 declare -gr ProgramFiles1="${HOME}/.wine/drive_c/Program Files"
 declare -gr ProgramFiles2="${HOME}/.wine/drive_c/Program Files (x86)"
@@ -34,14 +32,8 @@ declare -gr KakaoTalk="/Kakao/KakaoTalk"
 declare -gr KakaoTalkPath1="${ProgramFiles1}${KakaoTalk}"
 declare -gr KakaoTalkPath2="${ProgramFiles2}${KakaoTalk}"
 
-EXIST=1
-NON_EXIST=0
-
-SUDO="sudo"
-
-function pushd { builtin pushd "$@" > /dev/null; }
-function popd  { builtin popd  "$@" > /dev/null; }
-
+function pushdd { builtin pushd "$@" > /dev/null || exit; }
+function popdd  { builtin popd  > /dev/null || exit; }
 
 function die
 {
@@ -49,7 +41,7 @@ function die
     ## exits with 1 if error number not given
     shift
     [ -n "$*" ] &&
-	printf "%s%s: %s\n" "$scriptname" ${version:+" ($version)"} "$*" >&2
+	printf "%s%s: %s\n" "$SC_SCRIPT" ${version:+" ($version)"} "$*" >&2
     exit "$error"
 }
 
@@ -63,15 +55,14 @@ function checkIfFile
     local file=$1
     local result=""
     if [ ! -e "$file" ]; then
-	result=$NON_EXIST
-	# doesn't exist
+    	result=$NON_EXIST
+	    # doesn't exist
     else
-	result=$EXIST
-	# exist
+	    result=$EXIST
+	    # exist
     fi
     echo "${result}"	 
 };
-
 
 function checkIfVar()
 {
@@ -79,15 +70,14 @@ function checkIfVar()
     local var=$1
     local result=""
     if [ -z "$var" ]; then
-	result=$NON_EXIST
-	# doesn't exist
+    	result=$NON_EXIST
+	    # doesn't exist
     else
-	result=$EXIST
-	# exist
+    	result=$EXIST
+    	# exist
     fi
     echo "${result}"
 }
-
 
 ## if [[ $(checkIfDir "${rep}") -eq "$EXIST" ]]; then
 ##    EXIST
@@ -100,20 +90,19 @@ function checkIfDir
     local dir=$1
     local result=""
     if [ ! -d "$dir" ]; then
-	result=$NON_EXIST
-	# doesn't exist
+    	result=$NON_EXIST
+    	# doesn't exist
     else
-	result=$EXIST
-	# exist
+    	result=$EXIST
+    	# exist
     fi
     echo "${result}"
 };
 
-
 function get_ip
 {
-    local realip=$(ip -4 route get 8.8.8.8 | awk {'print $7'} | tr -d '\n')
-
+    local realip="";
+    realip=$(ip -4 route get 8.8.8.8 | awk \{'print $7'\} | tr -d '\n')
     printf "Real IP address %s\n" "$realip"
 }
 
@@ -122,15 +111,15 @@ function start_kakaotalk
 {
     local target=""
     if [[ $(checkIfDir "${KakaoTalkPath1}") -eq "$EXIST" ]]; then
-	target="${KakaoTalkPath1}"
+    	target="${KakaoTalkPath1}"
     elif [[ $(checkIfDir "${KakaoTalkPath2}") -eq "$EXIST" ]]; then
-	target="${KakaoTalkPath2}"
+    	target="${KakaoTalkPath2}"
     else
-	die "There is no path for Kakaotalk"
+    	die "There is no path for Kakaotalk"
     fi
-    pushd "${target}"
+    pushdd "${target}"
     wine KakaoTalk.exe &
-    popd
+    popdd
 }
 
 
@@ -144,13 +133,10 @@ function uninstall_kakaotalk
     else
 	die "There is no path for Kakaotalk"
     fi
-    pushd "${target}"
+    pushdd "${target}"
     wine uninstall.exe &
-    popd
+    popdd
 }
-
-
-
 
 
 function stop_kakaotalk
@@ -163,7 +149,7 @@ function stop_kakaotalk
     else
 	printf ">> KakaoTalk is running with %s\n" "${pid}"
 	printf "   Killing the running KakaoTalk ....\n"
-	kill -9 ${pid}
+	kill -9 "${pid}"
     fi
 
     local pids=NON_EXIST;
@@ -171,10 +157,10 @@ function stop_kakaotalk
     if [[ $(checkIfVar "${pids}") -eq "$NON_EXIST" ]]; then
 	printf ">> Wine application is not running\n";
     else
-	for pid in ${pids[@]}; do
+	for pid in "${pids[@]}"; do
 	    printf ">> Wineserver and others are running with %s\n" "${pid}"
 	    printf "   Killing the running wine applications ....\n"
-	    kill -9 ${pid}
+	    kill -9 "${pid}"
 	done
     fi
     

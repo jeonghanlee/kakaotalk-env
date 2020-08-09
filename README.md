@@ -1,93 +1,134 @@
-kakaotalk-env
-===
+# kakaotalk-env
 
 This is the wrapper script to start and quit the Kakao Talk in the Debian Linux.
 
 ## Assumption
-A system must have **one** single wine application for the Kakao Talk. If not, please don't use this repo to handle the Kakao Talk. This script will kill own entire wine applications when the Kakao Talk will be restarted or stopped. 
+
+A system must have **one** single wine application for the Kakao Talk. If not, please don't use this repo to handle the Kakao Talk. This script will kill own entire wine applications when the Kakao Talk will be restarted or stopped.
 
 ## Preparation
 
 * Install Wine with root
 
-```
+```bash
 dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind
 ```
 
-* Setup the basic Korean font for wine. At least one should run wine before Kakao installation. 
+## Build
 
-`emacs ~/.wine/system.reg`
+Several Makefile fules make life easy.
 
-```
-"MS Shell Dlg"="NanumGothic"
-"MS Shell Dlg 2"="NanumGothic"
-```
+```bash
+$ make
+........
+KakaoTalk_Setup.exe        100%[=======================================>]  52.46M  17.0MB/s    in 3.7s
+2020-08-08 22:39:49 (14.3 MB/s) - ‘KakaoTalk_Setup.exe’ saved [55013760/55013760]
 
+$ make conf
+>>> Updating /home/jhlee/.wine/system.reg with NanumGothic
 
-## Download the latest Kakao Talk for Windows
-
-https://downloadkakaotalk.com/kakao-talk-for-windows.html
-
-```
-wget http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe
-````
-
-* Install the downloaded Kakao Talk with wine
+$ make install
 
 ```
-wine KakaoTalk_Setup.exe
+
+### Follow Screenshots
+
+|![1png](images/1.png)|
+| :---: |
+|**Figure 1** |
+
+|![1png](images/1.png)|
+| :---: |
+|**Figure 1** |
+
+|![2png](images/2.png)|
+| :---: |
+|**Figure 2** |
+
+|![3png](images/3.png)|
+| :---: |
+|**Figure 3** |
+
+|![4png](images/4.png)|
+| :---: |
+|**Figure 4** |
+
+|![5png](images/5.png)|
+| :---: |
+|**Figure 5** |
+
+|![6png](images/6.png)|
+| :---: |
+|**Figure 6** |
+
+|![7png](images/7.png)|
+| :---: |
+|**Figure 7** |
+
+|![8png](images/8.png)|
+| :---: |
+|**Figure 8** |
+
+|![9png](images/9.png)|
+| :---: |
+|**Figure 9** |
+
+### `make get`
+
+Download `KakaoTalk_Setup.exe` from [1].
+
+### `make conf`
+
+This rule make the basic Korean font setup for KakaoTalk by editing `$HOME/.wine/system.reg`. The default font I've tested is `NanumGothic`. If one would like to test other fonts, please check `DEFAULT_FONT` in `configure/CONFIG` file.
+
+### `make conf.show`
+
+This rule shows what two defintions are in `$HOME/.wine/system.reg`.
+
+```bash
+$ make conf.show
+ 88261  "MS Shell Dlg"="NanumGothic"
+ 88262  "MS Shell Dlg 2"="NanumGothic"
 ```
 
-* Select **Korean**  even if the main window fonts are totally broken. One cannot see the text on buttons, but one should know which buttons are following:
+### `make install`
 
-```
-1. Next
-2. Next
-3. Uncheck all > Install 
-4. Uncheck Run KakaoTalk > Finish
-```
+Install KakaoTalk.
 
-* Login with Kakao account
+## Upgrade
 
-With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill few times. 
+The automatic update doesn't work. However, we can install it again from scratch. It will have the latest version.
 
-```
-kakaotalk-env (master)$ ./kakaotalk.bash start
-```
+## Command line Commands
 
-* Go to the Settings, Select one of `Nanum` family fonts. The Kakao Talk will ask to restart it. 
-
-* Restart
-
-
-
-
-## Commands
+Usually, `Mate Desktop` one can find the Kakao icon in `Applicatons / Wine / Programs / Kakao Talk. However, sometime, the command line is useful.
 
 * Start it
-```
+
+```bash
 bash kakaotalk.bash start
 ```
-
 
 * Stop it
-```
-bash kakaotalk.bash start
+
+```bash
+bash kakaotalk.bash stop
 ```
 
 ## Screenshots
 
-
 |![Kakao Talk Setting](pictures/settings.png)|
 | :---: |
-|**Figure 1** Kakao Talk Setting. |
-
+|**Figure 4** Kakao Talk Setting. |
 
 |![Kakao Talk Setting](pictures/settings_info.png)|
 | :---: |
-|**Figure 2** Kakao Talk Setting Information. |
-
+|**Figure 5** Kakao Talk Setting Information. |
 
 |![System Inforg](pictures/system_info.png)|
 | :---: |
-|**Figure 3** Kakao Talk and Debian System Information. |
+|**Figure 6** Kakao Talk and Debian System Information. |
+
+## Reference
+
+[1] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>

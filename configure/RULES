@@ -1,0 +1,14 @@
+#
+get:
+	@wget -c $(SRC_URL)
+
+conf:
+	@echo ">>> Updating $(WINE_CFG) with $(DEFAULT_FONT)"
+	@sed -i -e "s:\"MS Shell Dlg\"=.*:\"MS Shell Dlg\"=\"$(DEFAULT_FONT)\":g"\
+                   -e "s:\"MS Shell Dlg 2\"=.*:\"MS Shell Dlg 2\"=\"$(DEFAULT_FONT)\":g"  $(WINE_CFG)
+
+conf.show:
+	@cat -b $(WINE_CFG) | grep "MS Shell"
+
+install:
+	@wine $(TOP)/$(SRC_NAME)
