@@ -2,15 +2,11 @@
 
 ![Linter Run](https://github.com/jeonghanlee/kakaotalk-env/workflows/Linter%20Run/badge.svg)
 
-Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian Linux. 
-
-
+Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian Linux.
 
 ## Backgroud
 
-I am weak to type many words with the small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, so I just tried to install it through Wine. This repository was turned out my struggle while doing so. I hope that Kakao should support their application for Linux architecture more and more. I am pretty sure that the company has a lot of benefits from Linux community. 
-
-
+I am weak to type many words with the small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, so I just tried to install it through Wine. This repository was turned out my struggle while doing so. I hope that Kakao should support their application for Linux architecture more and more. I am pretty sure that the company has a lot of benefits from Linux community.
 
 ## Preparation
 
