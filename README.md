@@ -21,7 +21,7 @@ Several Makefile fules make life easy.
 ```bash
 $ make
 ........
-KakaoTalk_Setup.exe        100%[=======================================>]  52.46M  17.0MB/s    in 3.7s
+KakaoTalk_Setup.exe        100%[==================>]  52.46M  17.0MB/s    in 3.7s
 2020-08-08 22:39:49 (14.3 MB/s) - ‘KakaoTalk_Setup.exe’ saved [55013760/55013760]
 
 $ make conf
@@ -59,11 +59,11 @@ $ make install
 
 |![6png](images/6.png)|
 | :---: |
-|**Figure 6** |
+|**Figure 6** Select `***` "More (더보기)". One can see the Setting icon in the left-bottom area. The broken menu order is 설정, 잠금모드, 로그아웃, 종료. |
 
 |![7png](images/7.png)|
 | :---: |
-|**Figure 7** |
+|**Figure 7** Font Selection Menu. |
 
 |![8png](images/8.png)|
 | :---: |
@@ -119,15 +119,15 @@ bash kakaotalk.bash stop
 
 |![Kakao Talk Setting](pictures/settings.png)|
 | :---: |
-|**Figure 4** Kakao Talk Setting. |
+|**Figure 10** Kakao Talk Setting. |
 
 |![Kakao Talk Setting](pictures/settings_info.png)|
 | :---: |
-|**Figure 5** Kakao Talk Setting Information. |
+|**Figure 11** Kakao Talk Setting Information. |
 
 |![System Inforg](pictures/system_info.png)|
 | :---: |
-|**Figure 6** Kakao Talk and Debian System Information. |
+|**Figure 12** Kakao Talk and Debian System Information. |
 
 ## Reference
 
