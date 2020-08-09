@@ -146,7 +146,6 @@ function uninstall_kakaotalk
 
 function stop_kakaotalk
 {
-    local pids=NON_EXIST;
     local name=""
     name="KakaoTalk.exe";
 
@@ -168,17 +167,15 @@ function stop_kakaotalk
     # Wine-dbg>quit
     # $
     #
-    pids=$(ps a | grep "KakaoTalk.exe" | grep -v "grep" | awk '{print $1}')
+    pid=$(pgrep "KakaoTalk.exe")
 
-    if [[ $(checkIfVar "${pids}") -eq "$NON_EXIST" ]]; then
+    if [[ $(checkIfVar "${pid}") -eq "$NON_EXIST" ]]; then
     	printf ">> Wine %s application is not running\n" "$name";
     else
-	    for pid in "${pids[@]}"; do
-	        printf ">> Wine %s application was found with PID %s\n" "$name" "${pid}"
-	        printf "   Killing the running application ....\n"
-	        sudo kill -9 "${pid}"
-	    done
-    fi
+        printf ">> Wine %s application was found with PID %s\n" "$name" "${pid}"
+	    printf "   Killing the running application ....\n"
+	    sudo kill -9 "${pid}"
+	fi
     
 }
 

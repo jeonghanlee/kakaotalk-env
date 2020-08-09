@@ -145,5 +145,4 @@ bash kakaotalk.bash stop
 
 [1] <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
 
-[3] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
-
+[2] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
