@@ -59,7 +59,7 @@ $ make install
 
 |![6png](images/6.png)|
 | :---: |
-|**Figure 6** Select `***` "More (더보기)". One can see the Setting icon in the left-bottom area. The broken menu order is 설정, 잠금모드, 로그아웃, 종료. |
+|**Figure 6** One can see the Setting icon in the left-bottom area. The broken menu order is 설정, 잠금모드, 로그아웃, 종료. |
 
 |![7png](images/7.png)|
 | :---: |
@@ -71,7 +71,7 @@ $ make install
 
 |![9png](images/9.png)|
 | :---: |
-|**Figure 9** |
+|**Figure 9** After restarting it, the Korean fonts are shown clearly.|
 
 ### `make get`
 
