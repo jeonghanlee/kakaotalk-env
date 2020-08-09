@@ -2,6 +2,8 @@
 
 Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian Linux.
 
+![Linter Run](https://github.com/jeonghanlee/kakaotalk-env/workflows/Linter%20Run/badge.svg)
+
 ## Assumption
 
 A system must have **one** single wine application for the Kakao Talk. If not, please don't use this repo to handle the Kakao Talk. This script will kill own entire wine applications when the Kakao Talk will be restarted or stopped.
