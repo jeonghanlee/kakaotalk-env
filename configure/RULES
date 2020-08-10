@@ -33,5 +33,5 @@ install:
 
 pkgs:
 	@sudo dpkg --add-architecture i386
-	@sudo apt-get update 
-	@sudo apt-get install wine wine32 winbind
+	@sudo apt update -y
+	@sudo apt install -y wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra

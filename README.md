@@ -13,7 +13,7 @@ I am weak to type many words with the small phone, and it turns out so many typo
 * Install Wine with root
 
 ```bash
-dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind
+dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
 ```
 
 or
@@ -21,6 +21,14 @@ or
 ```bash
 make pkgs
 ```
+
+Note that with the default Debian installation, `${USER}` doesn't belong to `sudo` group. One should add the relevant user account to system `sudo` group.
+
+```bash
+usermod -aG sudo ${USER}
+```
+
+Of course, one should logout and login in, then be back to this console.
 
 ## Build
 
@@ -129,17 +137,17 @@ bash kakaotalk.bash start
 bash kakaotalk.bash stop
 ```
 
-## Screenshots
+## More Screenshots
 
-|![Kakao Talk Setting](pictures/settings.png)|
+|![Kakao Talk Setting](images/settings.png)|
 | :---: |
 |**Figure 10** Kakao Talk Setting. |
 
-|![Kakao Talk Setting](pictures/settings_info.png)|
+|![Kakao Talk Setting](images/settings_info.png)|
 | :---: |
 |**Figure 11** Kakao Talk Setting Information. |
 
-|![System Inforg](pictures/system_info.png)|
+|![System Inforg](images/system_info.png)|
 | :---: |
 |**Figure 12** Kakao Talk and Debian System Information. |
 
