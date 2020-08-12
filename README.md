@@ -13,10 +13,12 @@ I am weak to type many words with the small phone, and it turns out so many typo
 * Install Wine with root
 
 ```bash
-dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
+dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra make
 ```
 
 or
+
+If one has already `make`, one can use the following commands
 
 ```bash
 make pkgs
@@ -30,6 +32,12 @@ usermod -aG sudo ${USER}
 
 Of course, one should logout and login in, then be back to this console.
 
+* Configure Wine first. And choose Window 10. (It doesn't matter actually.)
+
+```bash
+winecfg
+```
+
 ## Build
 
 ```bash
@@ -40,12 +48,26 @@ KakaoTalk_Setup.exe        100%[==================>]  52.46M  17.0MB/s    in 3.7
 
 $ make conf
 >>> Updating /home/jhlee/.wine/system.reg with NanumGothic
-
 $ make install
-
 ```
 
 ### Follow Screenshots
+
+|![0png](images/winecfg.png)|
+| :---: |
+|**Figure 0.0** |
+
+|![01png](images/selectko.png)|
+| :---: |
+|**Figure 0.1** |
+
+|![02png](images/verifypc.png)|
+| :---: |
+|**Figure 0.2** |
+
+|![03png](images/verifypc2.png)|
+| :---: |
+|**Figure 0.3** |
 
 |![1png](images/1.png)|
 | :---: |
@@ -137,19 +159,29 @@ bash kakaotalk.bash start
 bash kakaotalk.bash stop
 ```
 
+## Ubuntu 20.04
+
+* There is no `NanumGothic`, but one can select `NanumBarunGothic` in setting of KakaoTalk.
+
+|![Ubuntu20](images/ubuntu20.png)|
+| :---: |
+|**Figure 11** Kakao Talk Setting. |
+
+* ufw is the default active stage, but disable. I tested with both disable and enable (with gufw) with the default ufw firewald configuration. Both case work fine.
+
 ## More Screenshots
 
 |![Kakao Talk Setting](images/settings.png)|
 | :---: |
-|**Figure 10** Kakao Talk Setting. |
+|**Figure 12** Kakao Talk Setting. |
 
 |![Kakao Talk Setting](images/settings_info.png)|
 | :---: |
-|**Figure 11** Kakao Talk Setting Information. |
+|**Figure 13** Kakao Talk Setting Information. |
 
 |![System Inforg](images/system_info.png)|
 | :---: |
-|**Figure 12** Kakao Talk and Debian System Information. |
+|**Figure 14** Kakao Talk and Debian System Information. |
 
 ## References
 
