@@ -167,6 +167,8 @@ function stop_kakaotalk
     # Wine-dbg>quit
     # $
     #
+    # It turns out, we don't need to be sudo. ;)
+    #
     pid=$(pgrep "KakaoTalk.exe")
 
     if [[ $(checkIfVar "${pid}") -eq "$NON_EXIST" ]]; then
@@ -174,10 +176,23 @@ function stop_kakaotalk
     else
         printf ">> Wine %s application was found with PID %s\n" "$name" "${pid}"
 	    printf "   Killing the running application ....\n"
-	    sudo kill -9 "${pid}"
+	    kill -9 "${pid}"
 	fi
     
 }
+
+
+## Interesting..
+function winedbg_stop_kakaotalk
+{
+    local name=""
+    local hex_wid=""
+  
+    name="KakaoTalk.exe";
+    hex_wid=$(winedbg --command "info proc" |grep "${name}" | awk '{print $1}')
+    echo "$hex_wid"
+}
+
 
 case "$1" in
     start)
@@ -196,6 +211,9 @@ case "$1" in
     ip)
 	    get_ip;
 	    ;;
+    dbg)
+        winedbg_stop_kakaotalk
+        ;;
      *)
 	echo "Usage: $0 {start|stop|restart|ip}"
 	exit 2

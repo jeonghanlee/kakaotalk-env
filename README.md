@@ -2,7 +2,7 @@
 
 ![Linter Run](https://github.com/jeonghanlee/kakaotalk-env/workflows/Linter%20Run/badge.svg)
 
-Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian Linux.
+Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit the Kakao Talk in the Debian / Ubuntu Linux.
 
 ## Backgroud
 
@@ -48,8 +48,11 @@ KakaoTalk_Setup.exe        100%[==================>]  52.46M  17.0MB/s    in 3.7
 
 $ make conf
 >>> Updating /home/jhlee/.wine/system.reg with NanumGothic
+
 $ make install
 ```
+
+One should see the following screenshots for further configuration.
 
 ### Follow Screenshots
 
@@ -183,8 +186,32 @@ bash kakaotalk.bash stop
 | :---: |
 |**Figure 14** Kakao Talk and Debian System Information. |
 
+## Korean Input System
+
+I don't use the Korean Locale, because it makes me so many troubles to build programs since my First SUSE / Redhat Linux. Now it is much better than before. But I don't need to use them also. I delightly use `ibus-hangul`, it is easy to setup, and work very well [3]. Here is my locale information if anyone have some difficulties.
+
+```bash
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE=en_US.UTF-8
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+```
+
 ## References
 
 [1] <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
 
 [2] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
+
+[3] <https://github.com/libhangul/ibus-hangul>
