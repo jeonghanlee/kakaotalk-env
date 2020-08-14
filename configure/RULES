@@ -1,4 +1,6 @@
 #
+vpath %.exe $(TOP)
+
 .PHONY: usage all pkgs get conf conf.show install upgrade
 
 # default
@@ -6,18 +8,21 @@ usage:
 	@echo ""
 	@echo ">>> Welcome $(APPNAME) Configuration Environment."
 	@echo ""
-	@echo "    make get       : Download $(APPNAME)"
+	@echo "    make get       : Clean and Download $(APPNAME)"
 	@echo "    make conf      : Update $(WINE_CFG) with $(DEFAULT_FONT)"
 	@echo "    make conf.show : Show the $(DEFAULT_FONT) in $(WINE_CFG)"
 	@echo "    make install   : Install $(APPNAME) through wine"
 	@echo "    make pkgs      : Install all necessary wine packages"
 	@echo "    make usage     : This screen (default)"
 	@echo "    make upgrade   : Reinstall $(APPNAME) (get, conf, conf.show, and install)"
+	@echo "    make clean     : Remove the downloaded $(APPNAME)"
 	@echo ""
 
 upgrade: get conf conf.show install 
 
-get:
+get: clean $(APPNAME)
+
+$(APPNAME):
 	@wget -c $(SRC_URL)
 
 conf:
@@ -35,3 +40,6 @@ pkgs:
 	@sudo dpkg --add-architecture i386
 	@sudo apt update -y
 	@sudo apt install -y wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
+
+clean:
+	@-rm -f $(APPNAME)
