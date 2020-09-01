@@ -140,7 +140,7 @@ With the `kakaotalk.bash`, one can register this application with the Kakao-Talk
 
 ## Upgrade
 
-The automatic update doesn't work. However, we can install it again from scratch. It will have the latest version.
+The automatic update doesn't work. However, we can install it again from scratch. If there is a running KakaoTalk, this rule will stop it.
 
 ```bash
 make upgrade
@@ -154,12 +154,20 @@ Usually, `Mate Desktop` one can find the Kakao icon in `Applicatons / Wine / Pro
 
 ```bash
 bash kakaotalk.bash start
+
+or
+
+make start
 ```
 
 * Stop it
 
 ```bash
 bash kakaotalk.bash stop
+
+or
+
+make stop
 ```
 
 ## Ubuntu 20.04

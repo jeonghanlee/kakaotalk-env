@@ -18,7 +18,7 @@ usage:
 	@echo "    make clean     : Remove the downloaded $(APPNAME)"
 	@echo ""
 
-upgrade: get conf conf.show install 
+upgrade: get conf conf.show stop install 
 
 get: clean $(APPNAME)
 
@@ -43,3 +43,9 @@ pkgs:
 
 clean:
 	@-rm -f $(APPNAME)
+
+stop:
+	@bash $(TOP)/kakaotalk.bash stop
+
+start:
+	@bash $(TOP)/kakaotalk.bash start
