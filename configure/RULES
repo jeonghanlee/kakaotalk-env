@@ -1,5 +1,6 @@
 #
 vpath %.exe $(TOP)
+vpath %.md $(TOP)
 
 .PHONY: usage all pkgs get conf conf.show install upgrade
 
@@ -54,4 +55,9 @@ start:
 	@bash $(TOP)/kakaotalk.bash start
 
 backup:
-	@-mv $(APPNAME) $(APPNAME)_backup_$$(date +%Y%m%d-%H%M%S)
+ifneq (,$(wildcard $(APPNAME)))
+	@-7z e -y $(APPNAME) $(MD_FILE) -r
+	@-sed -i  's/\r//g' $(MD_FILE)
+	@-mv $(APPNAME) $(APPNAME)_v$$(sed -n '/^###/ {p;q}' $(MD_FILE) | cut -d ' ' -f 2)
+	@-rm -f $(MD_FILE)
+endif

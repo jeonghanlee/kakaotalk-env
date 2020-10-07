@@ -11,3 +11,5 @@ SRC_URL:=$(SRC_URL)/$(SRC_NAME)
 WINE_CFG:=${HOME}/.wine/system.reg
 
 DEFAULT_FONT:="NanumGothic"
+
+MD_FILE:=ChangeLogs_en.md

@@ -150,7 +150,7 @@ The automatic update doesn't work. However, we can install it again from scratch
 make upgrade
 ```
 
-In case, the latest version doesn't work, please check the old binary in `$(TOP)` path with `KakaoTalk_Setup.exe_backup_yyyymmdd_hhmmss` file. One can use it to recover it.
+If one has the exist `KakaoTalk_Setup.exe` file locally, the rule triggers an additional rule `make backup`. This backup rule renames the exist installation file with an extracted version number suffix, for example, `KakaoTalk_Setup.exe_v3.1.6.2572`. If the same version file exists, it will overwrite it. In case, the latest version doesn't work, use this backup file to recover it.
 
 ## Command line Commands
 
