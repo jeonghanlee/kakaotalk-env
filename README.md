@@ -138,6 +138,10 @@ Install KakaoTalk.
 
 With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill few times.
 
+### `make uninstall`
+
+Uninstall the installed Kakaotalk through `kakaotalk.bash`.
+
 ## Upgrade
 
 The automatic update doesn't work. However, we can install it again from scratch. If there is a running KakaoTalk, this rule will stop it.
@@ -145,6 +149,8 @@ The automatic update doesn't work. However, we can install it again from scratch
 ```bash
 make upgrade
 ```
+
+In case, the latest version doesn't work, please check the old binary in `$(TOP)` path with `KakaoTalk_Setup.exe_backup_yyyymmdd_hhmmss` file. One can use it to recover it.
 
 ## Command line Commands
 

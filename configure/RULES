@@ -20,7 +20,7 @@ usage:
 
 upgrade: get conf conf.show stop install 
 
-get: clean $(APPNAME)
+get: backup $(APPNAME)
 
 $(APPNAME):
 	@wget -c $(SRC_URL)
@@ -36,6 +36,9 @@ conf.show:
 install:
 	@wine $(TOP)/$(SRC_NAME)
 
+uninstall:
+	@bash $(TOP)/kakaotalk.bash uninstall
+
 pkgs:
 	@sudo dpkg --add-architecture i386
 	@sudo apt update -y
@@ -49,3 +52,6 @@ stop:
 
 start:
 	@bash $(TOP)/kakaotalk.bash start
+
+backup:
+	@-mv $(APPNAME) $(APPNAME)_backup_$$(date +%Y%m%d-%H%M%S)
