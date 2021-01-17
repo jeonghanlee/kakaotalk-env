@@ -6,7 +6,7 @@ From KakaoTalk PC Version 3.1.7.2601, the default Debian wine returns the follow
 err:module:LdrInitializeThunk "Vox.dll" failed to initialize, aborting
 ```
 
-And KaKaoTalk uses 100\% CPU and is not going to open its UI. In this case, one should use the wine development branch instead of the stable from the Winehq not from Debian official. Note that one should use *su* accout or a relaveant sudo account. The full instruction can be found at <https://wiki.winehq.org/Debian>.
+And KaKaoTalk uses 100\% CPU and is not going to open its UI. In this case, one should use the wine development branch instead of the stable from the Winehq not from Debian official. Note that one should use **su** accout or a relaveant sudo account. The full instruction can be found at <https://wiki.winehq.org/Debian>.
 
 ```bash
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
@@ -29,7 +29,7 @@ $ wine --version
 wine-6.0-rc6
 ```
 
-And *Figure Docs.1 shows the latest (Jan 16, 2021) KakaoTalk about page.
+And **Figure Docs.1** shows the latest (Jan 16, 2021) KakaoTalk about page.
 
 |![3.2.1.2664.png](./../images/3.2.1.2664.png)|
 | :---: |
