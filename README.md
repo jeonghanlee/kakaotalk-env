@@ -222,6 +222,10 @@ LC_IDENTIFICATION="en_US.UTF-8"
 LC_ALL=
 ```
 
+## Errors and Warnings
+
+* With the latest KakaoTalk, I saw an issue on Debian 10. If one cannot run the KakaoTalk, please see [docs/Debian10.md](docs/Debian10.md).
+
 ## References
 
 [1] <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
