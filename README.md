@@ -10,6 +10,9 @@ I am weak to type many words with the small phone, and it turns out so many typo
 
 ## Preparation
 
+**Wine 6 is required! If one doesn't have Wine 6, please check the latest Wine site how to upgrade to 6 in terms of your OS.**
+
+
 * Install Wine with root
 
 ```bash
