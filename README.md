@@ -191,7 +191,7 @@ make stop
 
 ## Doesn't work
 
-In case, this repository doesn't work for anyone. One may try PlayOnLinux shown in https://github.com/kimlulz/Katalk_linux.
+In case, this repository doesn't work for anyone. One may try the method with PlayOnLinux shown in https://github.com/kimlulz/Katalk_linux.
 
 ## More Screenshots
 
