@@ -189,6 +189,10 @@ make stop
 
 * ufw is the default active stage, but disable. I tested with both disable and enable (with gufw) with the default ufw firewald configuration. Both case work fine.
 
+## Doesn't work
+
+In case, this repository doesn't work for anyone. One may try PlayOnLinux shown in https://github.com/kimlulz/Katalk_linux.
+
 ## More Screenshots
 
 |![Kakao Talk Setting](images/settings.png)|
