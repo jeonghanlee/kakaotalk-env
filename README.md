@@ -63,6 +63,7 @@ One should see the following screenshots for further configuration.
 | :---: |
 |**Figure 0.0** |
 
+Make sure you select `한국어` instead of `English` at this step. Otherwise Korean fonts won't work, even with `NanumGothic` or `NanumBarunGothic` fix shown later.
 |![01png](images/selectko.png)|
 | :---: |
 |**Figure 0.1** |
