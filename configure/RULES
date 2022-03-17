@@ -9,6 +9,7 @@ usage:
 	@echo ""
 	@echo ">>> Welcome $(APPNAME) Configuration Environment."
 	@echo ""
+	@echo "    make setup     : Install $(APPNAME) (get, conf, conf.show, and install)"
 	@echo "    make get       : Clean and Download $(APPNAME)"
 	@echo "    make conf      : Update $(WINE_CFG) with $(DEFAULT_FONT)"
 	@echo "    make conf.show : Show the $(DEFAULT_FONT) in $(WINE_CFG)"
@@ -18,6 +19,8 @@ usage:
 	@echo "    make upgrade   : Reinstall $(APPNAME) (get, conf, conf.show, and install)"
 	@echo "    make clean     : Remove the downloaded $(APPNAME)"
 	@echo ""
+
+setup: upgrade
 
 upgrade: get conf conf.show stop install 
 
@@ -41,9 +44,8 @@ uninstall:
 	@bash $(TOP)/kakaotalk.bash uninstall
 
 pkgs:
-	@sudo dpkg --add-architecture i386
 	@sudo apt update -y
-	@sudo apt install -y wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
+	@sudo apt install -y fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
 
 clean:
 	@-rm -f $(APPNAME)

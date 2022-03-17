@@ -2,3 +2,5 @@
 *.exe
 *_backup_*
 *.exe_*
+*.swp
+*.key

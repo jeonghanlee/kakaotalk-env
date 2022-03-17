@@ -8,24 +8,7 @@ Configuration Environment for KakaoTalk [1] and its wrapper script to start and 
 
 I am weak to type many words with the small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, so I just tried to install it through Wine. This repository was turned out my struggle while doing so. I hope that Kakao should support their application for Linux architecture more and more. I am pretty sure that the company has a lot of benefits from Linux community.
 
-## Preparation
-
-**Wine 6 is required! If one doesn't have Wine 6, please check the latest Wine site how to upgrade to 6 in terms of your OS.**
-
-
-* Install Wine with root
-
-```bash
-dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 winbind fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra make
-```
-
-or
-
-If one has already `make`, one can use the following commands
-
-```bash
-make pkgs
-```
+## Preparation (Debian 11)
 
 Note that with the default Debian installation, `${USER}` doesn't belong to `sudo` group. One should add the relevant user account to system `sudo` group.
 
@@ -35,86 +18,82 @@ usermod -aG sudo ${USER}
 
 Of course, one should logout and login in, then be back to this console.
 
+* Install required packages and **Wine 7 stable** (latest) from Winehq repository (Debian package Wine doesn't work with Kakaotalk).
+
+
+```bash
+bash scripts/updateWine4Debian11.bash
+```
+
 * Configure Wine first. And choose Window 10. (It doesn't matter actually.)
 
 ```bash
 winecfg
 ```
 
-## Build
+|![winecfg.png](images/winecfg.png)|
+| :---: |
+|**Figure 1** |
+
+## Setup
 
 ```bash
-$ make get
-........
-KakaoTalk_Setup.exe        100%[==================>]  52.46M  17.0MB/s    in 3.7s
-2020-08-08 22:39:49 (14.3 MB/s) - ‘KakaoTalk_Setup.exe’ saved [55013760/55013760]
-
-$ make conf
->>> Updating /home/jhlee/.wine/system.reg with NanumGothic
-
-$ make install
+$ make setup
 ```
 
-One should see the following screenshots for further configuration.
+*  Make sure you select `한국어` instead of `English` at this step. With Wine 7, it works, but UI is ugly.
 
-### Follow Screenshots
-
-|![0png](images/winecfg.png)|
+|![setup1.png](images/setup1.png)|
 | :---: |
-|**Figure 0.0** |
+|**Setup Step 1** |
 
-Make sure you select `한국어` instead of `English` at this step. Otherwise Korean fonts won't work, even with `NanumGothic` or `NanumBarunGothic` fix shown later.
-|![01png](images/selectko.png)|
-| :---: |
-|**Figure 0.1** |
 
-|![02png](images/verifypc.png)|
-| :---: |
-|**Figure 0.2** |
+* Click next or continue `  >`
 
-|![03png](images/verifypc2.png)|
-| :---: |
-|**Figure 0.3** |
 
-|![1png](images/1.png)|
+|![setup2.png](images/setup2.png)|
 | :---: |
-|**Figure 1** |
+|**Setup Step 2** |
 
-|![1png](images/1.png)|
-| :---: |
-|**Figure 1** |
 
-|![2png](images/2.png)|
+|![setupi3.png](images/setup3.png)|
 | :---: |
-|**Figure 2** |
+|**Setup Step 3** |
 
-|![3png](images/3.png)|
-| :---: |
-|**Figure 3** |
 
-|![4png](images/4.png)|
-| :---: |
-|**Figure 4** |
+* Unselect the checkbox with Daum prefix
 
-|![5png](images/5.png)|
+|![setupi4.png](images/setup4.png)|
 | :---: |
-|**Figure 5** |
+|**Setup Step 4** |
 
-|![6png](images/6.png)|
-| :---: |
-|**Figure 6** One can see the Setting icon in the left-bottom area. The broken menu order is 설정, 잠금모드, 로그아웃, 종료. |
+* Select Middle button (as default). One has to login the Kakao service with an accout.
 
-|![7png](images/7.png)|
+|![setup5.png](images/setup5.png)|
 | :---: |
-|**Figure 7** Font Selection Menu. |
+|**Setup Step 5** |
 
-|![8png](images/8.png)|
+|![setup6.png](images/setup6.png)|
 | :---: |
-|**Figure 8** |
+|**Setup Step 6** |
 
-|![9png](images/9.png)|
+|![setup7.png](images/setup7.png)|
 | :---: |
-|**Figure 9** After restarting it, the Korean fonts are shown clearly.|
+|**Setup Step 7** |
+
+* One should go `화면` option, the sixth from top to bottom, in the left broken menu. The first and second options in the right panel are shown in the following picture.
+Please select the second one as Naum font. Then the application will ask us to reboot. After rebooting one can see the Korean font well.
+
+|![setup8.png](images/setup8.png)|
+| :---: |
+|**Setup Step 8** |
+
+* Version
+
+|![setup9.png](images/setup9.png)|
+| :---: |
+|**Setup Step 9** |
+
 
 ### `make get`
 
