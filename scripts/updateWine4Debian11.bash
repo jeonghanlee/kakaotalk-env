@@ -35,6 +35,7 @@ sudo dpkg --add-architecture i386
 pushdd "${SC_TOP}"
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
 sudo apt-key add winehq.key
+rm -rf winehq.key
 echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > winehq.list
 sudo mv "${SC_TOP}/winehq.list" /etc/apt/sources.list.d/
 popdd
