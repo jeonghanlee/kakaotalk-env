@@ -24,20 +24,20 @@ declare -g SC_SCRIPT;
 SC_SCRIPT="$(realpath "$0")";
 SC_TOP="${SC_SCRIPT%/*}"
 
-function pushd { builtin pushd "$@" > /dev/null || exit; }
-function popd  { builtin popd  > /dev/null || exit; }
+function pushdd { builtin pushd "$@" > /dev/null || exit; }
+function popdd  { builtin popd  > /dev/null || exit; }
 
 
 sudo apt install -y make wget fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
 
 sudo dpkg --add-architecture i386
 
-pushd "${SC_TOP}"
+pushdd "${SC_TOP}"
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
 sudo apt-key add winehq.key
 echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > winehq.list
 sudo mv "${SC_TOP}/winehq.list" /etc/apt/sources.list.d/
-popd
+popdd
 
 sudo apt update -y
 sudo apt install --install-recommends winehq-devel
