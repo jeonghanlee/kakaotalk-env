@@ -40,7 +40,7 @@ sudo mv "${SC_TOP}/winehq.list" /etc/apt/sources.list.d/
 popdd
 
 sudo apt update -y
-sudo apt install --install-recommends winehq-devel
+sudo apt install --install-recommends winehq-stable
 
 printf ">>> Please check the following Wine version\n"
 wine --version
