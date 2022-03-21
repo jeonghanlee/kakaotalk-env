@@ -2,7 +2,7 @@
 vpath %.exe $(TOP)
 vpath %.md $(TOP)
 
-.PHONY: usage all pkgs get conf conf.show install upgrade
+.PHONY: usage all pkgs get conf conf.show install upgrade setup
 
 # default
 usage:
