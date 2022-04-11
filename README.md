@@ -82,7 +82,7 @@ $ make setup
 |**Setup Step 7** |
 
 * One should go `화면` option, the sixth from top to bottom, in the left broken menu. The first and second options in the right panel are shown in the following picture.
-Please select the second one as Naum font. Then the application will ask us to reboot. After rebooting one can see the Korean font well.
+Please select the second one as Nanum font. Then the application will ask us to reboot. After rebooting one can see the Korean font well.
 
 |![setup8.png](images/setup8.png)|
 | :---: |
