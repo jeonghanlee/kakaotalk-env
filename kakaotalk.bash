@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Copyright (c) 2019 - 2020   Jeong Han Lee
+#  Copyright (c) 2019 - 2023  Jeong Han Lee
 #
 #  The program is free software: you can redistribute
 #  it and/or modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@
 #
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   version : 0.0.5
+#   version : 0.0.6
 
 declare -g SC_SCRIPT;
 
@@ -48,24 +48,6 @@ function die
     exit "$error"
 }
 
-
-## if [[ $(checkIfFile "${release_file}") -eq "$NON_EXIST" ]]; then
-#   NON_EXIT
-## fi
-
-function checkIfFile
-{
-    local file=$1
-    local result=""
-    if [ ! -e "$file" ]; then
-    	result=$NON_EXIST
-	    # doesn't exist
-    else
-	    result=$EXIST
-	    # exist
-    fi
-    echo "${result}"	 
-};
 
 function checkIfVar()
 {
