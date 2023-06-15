@@ -18,8 +18,7 @@ usermod -aG sudo ${USER}
 
 Of course, one should log out and log in, then return to this console.
 
-* Install required packages and **Wine 8 stable** (latest) from the Winehq repository (Debian package Wine doesn't work with Kakaotalk).
-
+* Install required packages and **Wine 8 stable** (latest) from the Winehq repository.
 
 ```bash
 bash scripts/updateWine4Debian12.bash
