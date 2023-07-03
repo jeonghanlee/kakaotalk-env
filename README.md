@@ -4,6 +4,9 @@
 
 Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit Kakao Talk in the Debian / Ubuntu Linux.
 
+## News
+* 2023-07-03: The automatic update of KakaoTalk works on my Debian 12 machine with the 3.52.3502 version.
+
 ## Backgroud
 
 I am weak in typing many words with a small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, I just tried to install it through Wine. This repository turned out to be my struggle while doing so. Kakao should support their application for Linux architecture more and more. The company has a lot of benefits from the Linux community.
