@@ -5,7 +5,7 @@
 Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit Kakao Talk in the Debian / Ubuntu Linux.
 
 ## News
-* 2023-07-03: The automatic update of KakaoTalk works on my Debian 12 machine with the 3.52.3502 version.
+* 2023-07-03: The automatic update of KakaoTalk works on my Debian 12 machine with the 3.5.2.3502 version.
 
 ## Backgroud
 
