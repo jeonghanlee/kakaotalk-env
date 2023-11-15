@@ -38,7 +38,7 @@ conf.show:
 	@cat -b $(WINE_CFG) | grep "MS Shell"
 
 install:
-	@wine $(TOP)/$(SRC_NAME) /S
+	@wine $(TOP)/$(SRC_NAME)
 
 uninstall:
 	@bash $(TOP)/kakaotalk.bash uninstall
