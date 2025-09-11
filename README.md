@@ -5,6 +5,7 @@
 Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit Kakao Talk in the Debian / Ubuntu Linux.
 
 ## News
+* 2025-09-11: Debian 13 Support
 * 2023-07-03: The automatic update of KakaoTalk works on my Debian 12 machine with the 3.5.2.3502 version.
 
 ## Backgroud
@@ -21,13 +22,13 @@ usermod -aG sudo ${USER}
 
 Of course, one should log out and log in, then return to this console.
 
-* Install required packages and **Wine 8 stable** (latest) from the Winehq repository.
+* Install required packages and **Wine latest** from the Winehq repository.
 
 ```bash
 bash scripts/UpdateWine4Debian.bash
 ```
 
-* Configure Wine first. And choose Window 10. (It doesn't matter, actually.)
+* Configure Wine first. And choose Window 11. (It doesn't matter, actually.)
 
 ```bash
 winecfg
@@ -43,58 +44,59 @@ winecfg
 $ make setup
 ```
 
-*  Make sure you select `한국어` instead of `English` at this step. With Wine 7, it works, but UI is ugly.
+* Make sure you select `한국어` instead of `English` at this step. And hit `OK`.
 
 |![setup1.png](images/setup1.png)|
 | :---: |
 |**Setup Step 1** |
 
 
-* Click next or continue `  >`
-
-
 |![setup2.png](images/setup2.png)|
 | :---: |
 |**Setup Step 2** |
 
+* Click next or continue ` [ ][ ] >`
 
-|![setupi3.png](images/setup3.png)|
+|![setup2.1.png](images/setup2.1.png)|
+| :---: |
+|**Setup Step 2.1** |
+
+* Click next or continue `[ ][ ][ ]`
+
+|![setup3.png](images/setup3.png)|
 | :---: |
 |**Setup Step 3** |
 
-
-* Unselect the checkbox with the Daum prefix
+* Click next or continue `[ ][ ]`
 
 |![setupi4.png](images/setup4.png)|
 | :---: |
 |**Setup Step 4** |
 
-* Select the Middle button (as default). One has to log in to the Kakao service with an account.
+* Click next or continue `[ ][ ]`
+
 
 |![setup5.png](images/setup5.png)|
 | :---: |
 |**Setup Step 5** |
 
+* Use QR code login
+
 |![setup6.png](images/setup6.png)|
 | :---: |
 |**Setup Step 6** |
+
+* Go to the Setting to select `Nanum Gothic`, then kakaotalk will be restarted.
 
 |![setup7.png](images/setup7.png)|
 | :---: |
 |**Setup Step 7** |
 
-* One should go `화면` option, the sixth from top to bottom, in the left broken menu. The first and second options in the right panel are shown in the following picture.
-Please select the second one as Nanum font. Then the application will ask us to reboot. After rebooting, one can see the Korean font well.
+* Version
 
 |![setup8.png](images/setup8.png)|
 | :---: |
 |**Setup Step 8** |
-
-* Version
-
-|![setup9.png](images/setup9.png)|
-| :---: |
-|**Setup Step 9** |
 
 
 ### `make get`
@@ -111,8 +113,8 @@ This rule shows the two definitions in `$HOME/.wine/system.reg`.
 
 ```bash
 $ make conf.show
- 88261  "MS Shell Dlg"="NanumGothic"
- 88262  "MS Shell Dlg 2"="NanumGothic"
+ 69377	"MS Shell Dlg"="NanumBarunGothic"
+ 69378	"MS Shell Dlg 2"="NanumBarunGothic"
 ```
 
 ### `make install`
@@ -161,33 +163,6 @@ or
 make stop
 ```
 
-## Ubuntu 20.04
-
-* There is no `NanumGothic`, but one can select `NanumBarunGothic` in the setting of KakaoTalk.
-
-|![Ubuntu20](images/ubuntu20.png)|
-| :---: |
-|**Figure 11** Kakao Talk Setting. |
-
-* ufw is the default active stage but disabled. I tested with both disable and enable (with gufw) with the default ufw firewall configuration. Both cases work fine.
-
-## Doesn't work
-
-In case this repository doesn't work for anyone. One may try the method with PlayOnLinux, shown at https://github.com/kimlulz/Katalk_linux.
-
-## More Screenshots
-
-|![Kakao Talk Setting](images/settings.png)|
-| :---: |
-|**Figure 12** Kakao Talk Setting. |
-
-|![Kakao Talk Setting](images/settings_info.png)|
-| :---: |
-|**Figure 13** Kakao Talk Setting Information. |
-
-|![System Inforg](images/system_info.png)|
-| :---: |
-|**Figure 14** Kakao Talk and Debian System Information. |
 
 ## Korean Input System
 

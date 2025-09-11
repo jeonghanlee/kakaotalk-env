@@ -31,6 +31,7 @@ function popdd  { builtin popd  > /dev/null || exit; }
 function which_os
 {
   if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     source /etc/os-release
     echo "$VERSION_CODENAME"
   fi
@@ -50,7 +51,7 @@ sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-bui
 if [[ -f "/etc/apt/sources.list.d/winehq.list" ]]; then
     sudo rm -f /etc/apt/sources.list.d/winehq.list
 fi
-sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/${DEB}/winehq-${DEB}.sources
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/"${DEB}"/winehq-"${DEB}".sources
 popdd
 
 sudo apt update -y
