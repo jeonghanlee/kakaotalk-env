@@ -11,7 +11,7 @@ Configuration Environment for KakaoTalk [1] and its wrapper script to start and 
 
 I am weak in typing many words with a small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, I just tried to install it through Wine. This repository turned out to be my struggle while doing so. Kakao should support their application for Linux architecture more and more. The company has a lot of benefits from the Linux community.
 
-## Preparation (Debian 12)
+## Preparation (Debian 13)
 
 Note that with the default Debian installation, `${USER}` doesn't belong to the `sudo` group. One should add the relevant user account to the system `sudo` group.
 
@@ -24,7 +24,7 @@ Of course, one should log out and log in, then return to this console.
 * Install required packages and **Wine 8 stable** (latest) from the Winehq repository.
 
 ```bash
-bash scripts/updateWine4Debian12.bash
+bash scripts/UpdateWine4Debian.bash
 ```
 
 * Configure Wine first. And choose Window 10. (It doesn't matter, actually.)
