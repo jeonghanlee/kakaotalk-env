@@ -1,0 +1,39 @@
+VARS_EXCLUDES += .SHELLSTATUS FILTER LEVEL LSOPTS UNAME_%
+VARS_EXCLUDES += $(filter -%, $(.VARIABLES))
+VARS_EXCLUDES += $(filter @%,  $(.VARIABLES))
+
+LEVEL  ?= 1
+FILTER ?= 1
+LSOPTS ?= "-lta"
+
+ifeq "$(FILTER)" "1"
+SRC_VARIABLES := $(sort $(filter-out $(VARS_EXCLUDES) VARS_EXCLUDES, $(.VARIABLES)))
+else
+SRC_VARIABLES := $(filter $(FILTER)%, $(sort $(filter-out $(VARS_EXCLUDES) VARS_EXCLUDES, $(.VARIABLES))))
+endif
+
+.PHONY: env vars _header
+
+env: vars
+
+vars: _header ## Print all active configuration variables
+	$(foreach v, $(SRC_VARIABLES), $(info $(v) = $($(v)))) @#noop
+
+_header:
+	$(QUIET) printf "\n"
+	$(QUIET) printf "%s\n" "------------------------------------------------------------"
+	$(QUIET) printf "%s\n" ">>>>          Current Environment Variables             <<<<"
+	$(QUIET) printf "%s\n" "------------------------------------------------------------"
+	$(QUIET) printf "\n"
+
+PRINT.%:
+	$(QUIET) printf "%s = %s\n" "$*" "$($*)"
+	$(QUIET) printf "%s origin: %s\n" "$*" "$(origin $*)"
+
+print-%:
+	$(QUIET) printf "%s\n" "$($*)"
+
+.DELETE_ON_ERROR:
+.NOTPARALLEL:
+
+FORCE:

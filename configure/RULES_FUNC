@@ -1,0 +1,9 @@
+ifndef VERBOSE
+  QUIET := @
+endif
+
+ifdef DEBUG_SHELL
+  SHELL = /bin/sh -x
+endif
+
+VARS_EXCLUDES += QUIET SHELL

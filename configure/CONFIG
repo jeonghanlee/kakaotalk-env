@@ -1,15 +1,8 @@
 VARS_EXCLUDES := $(.VARIABLES)
 
-APPNAME:=KakaoTalk_Setup.exe
+UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
 
-SRC_URL:=http://app.pc.kakao.com/talk/win32
-
-SRC_NAME:=$(APPNAME)
-
-SRC_URL:=$(SRC_URL)/$(SRC_NAME)
-
-WINE_CFG:=${HOME}/.wine/system.reg
-
-DEFAULT_FONT:="NanumBarunGothic"
-
-MD_FILE:=ChangeLogs_en.md
+include $(TOP)/configure/RELEASE
+include $(TOP)/configure/CONFIG_SITE
+include $(TOP)/configure/CONFIG_VARS

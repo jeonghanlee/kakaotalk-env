@@ -1,36 +1,61 @@
-# Debian 10
+# Debian 10 Wine Compatibility Note
 
-From KakaoTalk PC Version 3.1.7.2601, the default Debian wine returns the followin error message:
+## Scope
 
-```bash
+This document covers the Debian 10 Wine compatibility issue observed with KakaoTalk PC version 3.1.7.2601 and later.
+
+**Out of scope:** Current Debian 12 and Debian 13 setup. Use `scripts/UpdateWine4Debian.bash` for current Debian systems.
+
+## Observed Error
+
+On Debian 10 with the default Wine package, KakaoTalk may fail during startup with:
+
+```text
 err:module:LdrInitializeThunk "Vox.dll" failed to initialize, aborting
 ```
 
-And KaKaoTalk uses 100\% CPU and is not going to open its UI. In this case, one should use the wine development branch instead of the stable from the Winehq not from Debian official. Note that one should use **su** accout or a relaveant sudo account. The full instruction can be found at <https://wiki.winehq.org/Debian>.
+The application may then consume CPU without opening its user interface.
+
+## WineHQ Development Package
+
+Use the WineHQ repository instead of the Debian-provided Wine package for this legacy Debian 10 case. The WineHQ Debian instructions are the authoritative source:
+
+```text
+https://wiki.winehq.org/Debian
+```
+
+Legacy Debian 10 command sequence:
 
 ```bash
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
+```
+
+```bash
 apt-key add winehq.key
-echo "deb https://dl.winehq.org/wine-builds/debian/ buster main" > /etc/apt/sources.list.d/winehq.list
+```
+
+```bash
+printf "%s\n" "deb https://dl.winehq.org/wine-builds/debian/ buster main" > /etc/apt/sources.list.d/winehq.list
+```
+
+```bash
 apt update
+```
+
+```bash
 apt install --install-recommends winehq-devel
 ```
 
-After the above procedures, one can upgrade or reinstall it through
+## Reinstall
+
+After the Wine package is updated, reinstall KakaoTalk:
 
 ```bash
 make upgrade
 ```
 
-The wine version can be checked through
+Check the Wine version:
 
 ```bash
-$ wine --version
-wine-6.0-rc6
+wine --version
 ```
-
-And **Figure Docs.1** shows the latest (Jan 16, 2021) KakaoTalk about page.
-
-|![3.2.1.2664.png](./../images/3.2.1.2664.png)|
-| :---: |
-|**Figure Docs.1** |

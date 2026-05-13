@@ -1,0 +1,6 @@
+WINE_CFG ?= $(HOME)/.wine/system.reg
+DEFAULT_FONT ?= NanumBarunGothic
+MD_FILE ?= ChangeLogs_en.md
+
+-include $(TOP)/../CONFIG_SITE.local
+-include $(TOP)/configure/CONFIG_SITE.local

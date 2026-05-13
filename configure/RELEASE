@@ -1,0 +1,8 @@
+APPNAME := KakaoTalk_Setup.exe
+SRC_BASE_URL := http://app.pc.kakao.com/talk/win32
+SRC_NAME := $(APPNAME)
+SRC_URL := $(SRC_BASE_URL)/$(SRC_NAME)
+SRC_VERSION := latest
+
+-include $(TOP)/../RELEASE.local
+-include $(TOP)/configure/RELEASE.local

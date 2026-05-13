@@ -19,13 +19,15 @@
 #   email   : jeonghan.lee@gmail.com
 #   version : 0.0.1
 
-declare -g SC_SCRIPT;
+set -euo pipefail
 
-SC_SCRIPT="$(realpath "$0")";
+declare -g SC_SCRIPT
+
+SC_SCRIPT="$(realpath "$0")"
 SC_TOP="${SC_SCRIPT%/*}"
 
-function pushdd { builtin pushd "$@" > /dev/null || exit; }
-function popdd  { builtin popd  > /dev/null || exit; }
+function pushdd { builtin pushd "$@" > /dev/null || exit 1; }
+function popdd  { builtin popd > /dev/null || exit 1; }
 
 
 sudo apt install -y make wget fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
@@ -35,8 +37,8 @@ sudo dpkg --add-architecture i386
 pushdd "${SC_TOP}"
 wget -nc https://dl.winehq.org/wine-builds/winehq.key
 sudo apt-key add winehq.key
-rm -rf winehq.key
-echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > winehq.list
+rm -f winehq.key
+printf "%s\n" "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > winehq.list
 sudo mv "${SC_TOP}/winehq.list" /etc/apt/sources.list.d/
 popdd
 

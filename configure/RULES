@@ -1,65 +1,7 @@
-#
 vpath %.exe $(TOP)
 vpath %.md $(TOP)
+vpath %.local $(TOP)/configure
 
-.PHONY: usage all pkgs get conf conf.show install upgrade setup
-
-# default
-usage:
-	@echo ""
-	@echo ">>> Welcome $(APPNAME) Configuration Environment."
-	@echo ""
-	@echo "    make setup     : Install $(APPNAME) (get, conf, conf.show, and install)"
-	@echo "    make get       : Clean and Download $(APPNAME)"
-	@echo "    make conf      : Update $(WINE_CFG) with $(DEFAULT_FONT)"
-	@echo "    make conf.show : Show the $(DEFAULT_FONT) in $(WINE_CFG)"
-	@echo "    make install   : Install $(APPNAME) through wine"
-	@echo "    make pkgs      : Install all necessary wine packages"
-	@echo "    make usage     : This screen (default)"
-	@echo "    make upgrade   : Reinstall $(APPNAME) (get, conf, conf.show, and install)"
-	@echo "    make clean     : Remove the downloaded $(APPNAME)"
-	@echo ""
-
-setup: upgrade
-
-upgrade: get conf conf.show stop install 
-
-get: backup $(APPNAME)
-
-$(APPNAME):
-	@wget -c $(SRC_URL)
-
-conf:
-	@echo ">>> Updating $(WINE_CFG) with $(DEFAULT_FONT)"
-	@sed -i -e "s:\"MS Shell Dlg\"=.*:\"MS Shell Dlg\"=\"$(DEFAULT_FONT)\":g"\
-            -e "s:\"MS Shell Dlg 2\"=.*:\"MS Shell Dlg 2\"=\"$(DEFAULT_FONT)\":g"  $(WINE_CFG)
-
-conf.show:
-	@cat -b $(WINE_CFG) | grep "MS Shell"
-
-install:
-	@wine $(TOP)/$(SRC_NAME)
-
-uninstall:
-	@bash $(TOP)/kakaotalk.bash uninstall
-
-pkgs:
-	@sudo apt update -y
-	@sudo apt install -y fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
-
-clean:
-	@-rm -f $(APPNAME)
-
-stop:
-	@bash $(TOP)/kakaotalk.bash stop
-
-start:
-	@bash $(TOP)/kakaotalk.bash start
-
-backup:
-ifneq (,$(wildcard $(APPNAME)))
-	@-7z e -y $(APPNAME) $(MD_FILE) -r
-	@-sed -i  's/\r//g' $(MD_FILE)
-	@-mv $(APPNAME) $(APPNAME)_v$$(sed -n '/^###/ {p;q}' $(MD_FILE) | cut -d ' ' -f 2)
-	@-rm -f $(MD_FILE)
-endif
+include $(TOP)/configure/RULES_FUNC
+include $(TOP)/configure/RULES_KAKAOTALK
+include $(TOP)/configure/RULES_VARS

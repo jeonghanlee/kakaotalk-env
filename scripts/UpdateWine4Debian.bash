@@ -19,26 +19,37 @@
 #   email   : jeonghan.lee@gmail.com
 #   version : 0.0.2
 
-declare -g SC_SCRIPT;
+set -euo pipefail
 
-SC_SCRIPT="$(realpath "$0")";
+declare -g SC_SCRIPT
+
+SC_SCRIPT="$(realpath "$0")"
 SC_TOP="${SC_SCRIPT%/*}"
 
-function pushdd { builtin pushd "$@" > /dev/null || exit; }
-function popdd  { builtin popd  > /dev/null || exit; }
+function pushdd { builtin pushd "$@" > /dev/null || exit 1; }
+function popdd  { builtin popd > /dev/null || exit 1; }
 
 
 function which_os
 {
-  if [ -f /etc/os-release ]; then
-    # shellcheck disable=SC1091
-    source /etc/os-release
-    echo "$VERSION_CODENAME"
-  fi
+    local codename
+
+    if [[ ! -s /etc/os-release ]]; then
+        printf "%s\n" "Cannot read /etc/os-release" >&2
+        return 1
+    fi
+
+    codename="$(perl -ne 'print $1 if /^VERSION_CODENAME="?([^"\n]*)"?/' /etc/os-release)"
+    if [[ -z "$codename" ]]; then
+        printf "%s\n" "VERSION_CODENAME is not defined in /etc/os-release" >&2
+        return 1
+    fi
+
+    printf "%s\n" "$codename"
 }
 
 
-DEB=$(which_os)
+DEB="$(which_os)"
 
 
 sudo apt install -y make wget fonts-nanum fonts-nanum-eco fonts-nanum-extra

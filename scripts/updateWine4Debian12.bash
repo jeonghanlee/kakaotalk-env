@@ -19,13 +19,15 @@
 #   email   : jeonghan.lee@gmail.com
 #   version : 0.0.1
 
-declare -g SC_SCRIPT;
+set -euo pipefail
 
-SC_SCRIPT="$(realpath "$0")";
+declare -g SC_SCRIPT
+
+SC_SCRIPT="$(realpath "$0")"
 SC_TOP="${SC_SCRIPT%/*}"
 
-function pushdd { builtin pushd "$@" > /dev/null || exit; }
-function popdd  { builtin popd  > /dev/null || exit; }
+function pushdd { builtin pushd "$@" > /dev/null || exit 1; }
+function popdd  { builtin popd > /dev/null || exit 1; }
 
 
 sudo apt install -y make wget fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra

@@ -2,171 +2,162 @@
 
 [![Linter Run](https://github.com/jeonghanlee/kakaotalk-env/actions/workflows/linter.yml/badge.svg)](https://github.com/jeonghanlee/kakaotalk-env/actions/workflows/linter.yml)
 
-Configuration Environment for KakaoTalk [1] and its wrapper script to start and quit Kakao Talk in the Debian / Ubuntu Linux.
+KakaoTalk Wine setup environment for Debian and Ubuntu Linux.
 
-## News
-* 2025-09-11: Debian 13 Support
-* 2023-07-03: The automatic update of KakaoTalk works on my Debian 12 machine with the 3.5.2.3502 version.
+* Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+* CLI Reference: [docs/KAKAOTALK_CLI.md](docs/KAKAOTALK_CLI.md)
+* Debian 10 compatibility note: [docs/Debian10.md](docs/Debian10.md)
+* Wine setup helper: `scripts/UpdateWine4Debian.bash`
 
-## Backgroud
+## Prerequisites
 
-I am weak in typing many words with a small phone, and it turns out so many typos in messages. Since Kakao doesn't support the KakaoTalk Desktop for Linux distribution, I just tried to install it through Wine. This repository turned out to be my struggle while doing so. Kakao should support their application for Linux architecture more and more. The company has a lot of benefits from the Linux community.
-
-## Preparation (Debian 13)
-
-Note that with the default Debian installation, `${USER}` doesn't belong to the `sudo` group. One should add the relevant user account to the system `sudo` group.
+The user account must be able to run `sudo`. On a default Debian installation, add the account to the `sudo` group from a privileged shell:
 
 ```bash
 usermod -aG sudo ${USER}
 ```
 
-Of course, one should log out and log in, then return to this console.
+Log out and log back in before continuing.
 
-* Install required packages and **Wine latest** from the Winehq repository.
+Install Wine and the required font packages:
 
 ```bash
 bash scripts/UpdateWine4Debian.bash
 ```
 
-* Configure Wine first. And choose Window 11. (It doesn't matter, actually.)
+Configure Wine before installing KakaoTalk:
 
 ```bash
 winecfg
 ```
 
-|![winecfg.png](images/winecfg.png)|
-| :---: |
-|**Figure 1** |
+Select a Windows version in the Wine configuration dialog. Windows 11 is acceptable for current Wine releases.
 
-## Setup
+| ![winecfg.png](images/winecfg.png) |
+| :---: |
+| Wine configuration |
+
+## Makefile Workflow
+
+Show available targets:
 
 ```bash
-$ make setup
+make help
 ```
 
-* Make sure you select `한국어` instead of `English` at this step. And hit `OK`.
-
-|![setup1.png](images/setup1.png)|
-| :---: |
-|**Setup Step 1** |
-
-
-|![setup2.png](images/setup2.png)|
-| :---: |
-|**Setup Step 2** |
-
-* Click next or continue ` [ ][ ] >`
-
-|![setup2.1.png](images/setup2.1.png)|
-| :---: |
-|**Setup Step 2.1** |
-
-* Click next or continue `[ ][ ][ ]`
-
-|![setup3.png](images/setup3.png)|
-| :---: |
-|**Setup Step 3** |
-
-* Click next or continue `[ ][ ]`
-
-|![setupi4.png](images/setup4.png)|
-| :---: |
-|**Setup Step 4** |
-
-* Click next or continue `[ ][ ]`
-
-
-|![setup5.png](images/setup5.png)|
-| :---: |
-|**Setup Step 5** |
-
-* Use QR code login
-
-|![setup6.png](images/setup6.png)|
-| :---: |
-|**Setup Step 6** |
-
-* Go to the Setting to select `Nanum Gothic`, then kakaotalk will be restarted.
-
-|![setup7.png](images/setup7.png)|
-| :---: |
-|**Setup Step 7** |
-
-* Version
-
-|![setup8.png](images/setup8.png)|
-| :---: |
-|**Setup Step 8** |
-
-
-### `make get`
-
-Download `KakaoTalk_Setup.exe` from [2].
-
-### `make conf`
-
-This rule makes the basic Korean font setup for KakaoTalk by editing `$HOME/.wine/system.reg`. The default font I've tested is `NanumGothic`. If you want to test other fonts, please check `DEFAULT_FONT` in the `configure/CONFIG` file.
-
-### `make conf.show`
-
-This rule shows the two definitions in `$HOME/.wine/system.reg`.
+Install or reinstall KakaoTalk:
 
 ```bash
-$ make conf.show
- 69377	"MS Shell Dlg"="NanumBarunGothic"
- 69378	"MS Shell Dlg 2"="NanumBarunGothic"
+make setup
 ```
 
-### `make install`
+The setup workflow downloads the installer, updates the Wine shell font mapping, shows the configured font entries, stops any running KakaoTalk process, and starts the installer through Wine.
 
-Install KakaoTalk.
-
-* Login with a Kakao account
-
-With the `kakaotalk.bash`, one can register this application with the Kakao-Talk.  And it may start and kill a few times.
-
-### `make uninstall`
-
-Uninstall the installed Kakaotalk through `kakaotalk.bash`.
-
-## Upgrade
-
-The automatic update doesn't work. However, we can install it again from scratch. If there is a running KakaoTalk, this rule will stop it.
+Upgrade or reinstall from the latest downloaded installer:
 
 ```bash
 make upgrade
 ```
 
-If one has the existing `KakaoTalk_Setup.exe` file locally, the rule triggers an additional rule, `make backup`. This backup rule renames the existing installation file with an extracted version number suffix, for example, `KakaoTalk_Setup.exe_v3.1.6.2572`. If the same version file exists, it will overwrite it. In case the latest version doesn't work, use this backup file to recover it.
+If `KakaoTalk_Setup.exe` already exists, `make backup` extracts the installer changelog and renames the existing file with a version suffix before downloading a new copy.
 
-## Command line Commands
+Set the Wine shell fonts:
 
-Usually, In `Mate Desktop`, one can find the Kakao icon in `Applications / Wine / Programs / Kakao Talk. However, sometimes, the command line is useful.
+```bash
+make conf
+```
 
-* Start it
+Show the configured Wine shell font entries:
+
+```bash
+make conf.show
+```
+
+The default font is `NanumBarunGothic`. Override it without editing tracked files by creating `configure/CONFIG_SITE.local`:
+
+```makefile
+DEFAULT_FONT := NanumBarunGothic
+```
+
+## Direct CLI Workflow
+
+Start KakaoTalk:
 
 ```bash
 bash kakaotalk.bash start
-
-or
-
-make start
 ```
 
-* Stop it
+Stop KakaoTalk:
 
 ```bash
 bash kakaotalk.bash stop
-
-or
-
-make stop
 ```
 
+Restart KakaoTalk:
+
+```bash
+bash kakaotalk.bash restart
+```
+
+Uninstall KakaoTalk:
+
+```bash
+bash kakaotalk.bash uninstall
+```
+
+Print the local outbound IPv4 address:
+
+```bash
+bash kakaotalk.bash ip
+```
+
+## Setup Screens
+
+During installation, select `한국어` in the installer language prompt.
+
+| ![setup1.png](images/setup1.png) |
+| :---: |
+| Setup step 1 |
+
+| ![setup2.png](images/setup2.png) |
+| :---: |
+| Setup step 2 |
+
+| ![setup2.1.png](images/setup2.1.png) |
+| :---: |
+| Setup step 2.1 |
+
+| ![setup3.png](images/setup3.png) |
+| :---: |
+| Setup step 3 |
+
+| ![setup4.png](images/setup4.png) |
+| :---: |
+| Setup step 4 |
+
+| ![setup5.png](images/setup5.png) |
+| :---: |
+| Setup step 5 |
+
+Use QR code login.
+
+| ![setup6.png](images/setup6.png) |
+| :---: |
+| Setup step 6 |
+
+Select `Nanum Gothic` in KakaoTalk settings, then restart KakaoTalk.
+
+| ![setup7.png](images/setup7.png) |
+| :---: |
+| Setup step 7 |
+
+| ![setup8.png](images/setup8.png) |
+| :---: |
+| Setup step 8 |
 
 ## Korean Input System
 
-I don't use the Korean Locale because it makes me so much trouble building programs since my First SUSE / Redhat Linux. Now it is much better than before. But I don't need to use them also. I delightedly use `ibus-hangul`; it is easy to set up and works very well [3]. Here is my locale information if anyone has some difficulties.
+`ibus-hangul` works well with an English UTF-8 locale. A typical locale setup is:
 
 ```bash
 LANG=en_US.UTF-8
@@ -186,14 +177,8 @@ LC_IDENTIFICATION="en_US.UTF-8"
 LC_ALL=
 ```
 
-## Errors and Warnings
-
-* With the latest KakaoTalk, I saw an issue on Debian 10. If one cannot run the KakaoTalk, please see [docs/Debian10.md](docs/Debian10.md).
-
 ## References
 
-[1] <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
-
-[2] <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
-
-[3] <https://github.com/libhangul/ibus-hangul>
+* KakaoTalk: <https://www.kakaocorp.com/service/KakaoTalk?lang=en>
+* KakaoTalk Windows installer: <https://downloadkakaotalk.com/kakao-talk-for-windows.html>
+* ibus-hangul: <https://github.com/libhangul/ibus-hangul>

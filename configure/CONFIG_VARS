@@ -1,0 +1,8 @@
+KAKAOTALK_CTL := $(TOP)/kakaotalk.bash
+SCRIPT_FILES := $(KAKAOTALK_CTL) \
+  $(TOP)/scripts/UpdateWine4Debian.bash \
+  $(TOP)/scripts/updateWine4Debian11.bash \
+  $(TOP)/scripts/updateWine4Debian12.bash
+
+VARS_EXCLUDES += KAKAOTALK_CTL
+VARS_EXCLUDES += SCRIPT_FILES

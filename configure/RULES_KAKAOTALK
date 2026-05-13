@@ -1,0 +1,75 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help usage setup upgrade get conf conf.show install uninstall pkgs clean stop start backup check
+
+help: ## Show available Make targets
+	$(info )
+	$(info >>> Welcome $(APPNAME) Configuration Environment.)
+	$(info )
+	$(QUIET) awk '/^[a-zA-Z._0-9%-]+:/ {            \
+	  nb = sub( /^## /, "", helpMsg );               \
+	  if(nb == 0) {                                  \
+	    helpMsg = $$0;                               \
+	    nb = sub( /^[^:]*:.* ## /, "", helpMsg );    \
+	  }                                              \
+	  if (nb)                                        \
+	    print  $$1 "\t" helpMsg;                     \
+	}                                                \
+	{ helpMsg = $$0 }'                               \
+	$(MAKEFILE_LIST) | column -ts:
+	$(info )
+
+usage: help ## Alias for help
+
+setup: upgrade ## Install KakaoTalk
+
+upgrade: get conf conf.show stop install ## Reinstall KakaoTalk
+
+get: backup $(APPNAME) ## Download the KakaoTalk installer
+
+$(APPNAME):
+	$(QUIET) wget -c "$(SRC_URL)"
+
+conf: ## Update Wine font configuration
+	$(QUIET) printf ">>> Updating %s with %s\n" "$(WINE_CFG)" "$(DEFAULT_FONT)"
+	$(QUIET) sed -i \
+	  -e 's:"MS Shell Dlg"=.*:"MS Shell Dlg"="$(DEFAULT_FONT)":g' \
+	  -e 's:"MS Shell Dlg 2"=.*:"MS Shell Dlg 2"="$(DEFAULT_FONT)":g' \
+	  "$(WINE_CFG)"
+
+conf.show: ## Show Wine shell font configuration
+	$(QUIET) grep -n "MS Shell" "$(WINE_CFG)"
+
+install: ## Install KakaoTalk through Wine
+	$(QUIET) wine "$(TOP)/$(SRC_NAME)"
+
+uninstall: ## Uninstall KakaoTalk through Wine
+	$(QUIET) bash "$(KAKAOTALK_CTL)" uninstall
+
+pkgs: ## Install required Debian packages
+	$(QUIET) sudo apt update -y
+	$(QUIET) sudo apt install -y fonts-nanum fonts-nanum-coding fonts-nanum-eco fonts-nanum-extra
+
+clean: ## Remove the downloaded KakaoTalk installer
+	$(QUIET) rm -f "$(APPNAME)"
+
+stop: ## Stop KakaoTalk
+	$(QUIET) bash "$(KAKAOTALK_CTL)" stop
+
+start: ## Start KakaoTalk
+	$(QUIET) bash "$(KAKAOTALK_CTL)" start
+
+backup: ## Rename an existing installer with its extracted version
+ifneq (,$(wildcard $(APPNAME)))
+	$(QUIET) -7z e -y "$(APPNAME)" "$(MD_FILE)" -r
+	$(QUIET) -sed -i 's/\r//g' "$(MD_FILE)"
+	$(QUIET) -mv -f "$(APPNAME)" "$(APPNAME)_v$$(sed -n '/^###/ {p;q}' "$(MD_FILE)" | cut -d ' ' -f 2)"
+	$(QUIET) -rm -f "$(MD_FILE)"
+endif
+
+check: ## Validate Bash scripts and Makefile metadata
+	$(QUIET) bash -n $(SCRIPT_FILES)
+	$(QUIET) if command -v shellcheck >/dev/null 2>&1; then shellcheck $(SCRIPT_FILES); fi
+	$(QUIET) $(MAKE) --no-print-directory vars FILTER=APP >/dev/null
+
+FORCE:
